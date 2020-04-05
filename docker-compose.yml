@@ -1,14 +1,17 @@
 version: '3.7'
+
 services:
-    db:
-        image: mysql:8.0
-        ports:
-            - "3306:3306"
-        volumes:
-            - ./db/init:/docker-entrypoint-initdb.d
-            - ./db/data:/var/lib/mysql
-            - ./db/mysql_conf/:/etc/mysql/conf.d
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_USER: test
-            MYSQL_PASSWORD: test
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: pathport
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD:
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db/docker/conf:/etc/mysql/conf.d
+      - ./db/docker/data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
